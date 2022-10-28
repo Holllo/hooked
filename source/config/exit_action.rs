@@ -9,3 +9,9 @@ pub enum ExitAction {
   Continue,
   Stop,
 }
+
+impl Default for ExitAction {
+  fn default() -> Self {
+    Self::Stop
+  }
+}
