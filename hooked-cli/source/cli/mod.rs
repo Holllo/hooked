@@ -24,7 +24,14 @@ pub enum MainSubcommands {
   /// Install Hooked into ".git/hooks".
   Install {
     /// Overwrite existing files.
-    #[clap(long, default_value = "false")]
+    #[clap(long)]
     overwrite: bool,
+  },
+
+  /// Remove installed hooks.
+  Uninstall {
+    /// Remove hooks not installed by Hooked.
+    #[clap(long)]
+    all: bool,
   },
 }

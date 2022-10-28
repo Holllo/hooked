@@ -6,7 +6,7 @@
 #![warn(missing_docs, clippy::missing_docs_in_private_items)]
 
 use std::{
-  fs::{set_permissions, write, Permissions},
+  fs::{read_to_string, remove_file, set_permissions, write, Permissions},
   os::unix::fs::PermissionsExt,
   path::PathBuf,
 };
@@ -59,6 +59,25 @@ fn main() -> Result<()> {
           Tera::one_off(DEFAULT_TEMPLATE, &context, false)?,
         )?;
         set_permissions(hook_path, Permissions::from_mode(0o775))?;
+      }
+    }
+
+    MainSubcommands::Uninstall { all } => {
+      for hook_type in HOOK_TYPES {
+        let hook_path = git_hooks_dir.join(hook_type);
+        if !hook_path.exists() {
+          continue;
+        }
+
+        let hook_contents = read_to_string(&hook_path)?;
+        if all || hook_contents.contains("# Installed by Hooked.") {
+          remove_file(hook_path)?;
+        } else {
+          println!(
+            "{:?} wasn't installed by Hooked, use --all to remove it",
+            hook_path
+          );
+        }
       }
     }
   }
