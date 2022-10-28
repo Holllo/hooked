@@ -6,4 +6,5 @@ Config {
     general: General {
         directory: "hooks",
     },
+    pre_commit: [],
 }

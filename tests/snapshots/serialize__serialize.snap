@@ -1,0 +1,17 @@
+---
+source: tests/serialize.rs
+expression: to_string_pretty(&config).unwrap()
+---
+[general]
+directory = 'hooks'
+
+[[pre_commit]]
+name = 'Command Test'
+on_failure = 'continue'
+command = 'exit 0'
+
+[[pre_commit]]
+name = 'Script Test'
+on_failure = 'stop'
+script = 'test.sh'
+
