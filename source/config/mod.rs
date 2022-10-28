@@ -7,9 +7,11 @@ use {
   serde::{Deserialize, Serialize},
 };
 
+mod exit_action;
 mod general;
 mod task;
 
+pub use exit_action::*;
 pub use general::*;
 pub use task::*;
 
