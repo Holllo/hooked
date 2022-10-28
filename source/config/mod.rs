@@ -9,10 +9,12 @@ use {
 
 mod exit_action;
 mod general;
+mod pre_commit;
 mod task;
 
 pub use exit_action::*;
 pub use general::*;
+pub use pre_commit::*;
 pub use task::*;
 
 /// The main Hooked configuration struct.
@@ -21,6 +23,9 @@ pub use task::*;
 pub struct Config {
   /// General Hooked configuration.
   pub general: General,
+
+  /// Pre-commit hooks.
+  pub pre_commit: Vec<PreCommit>,
 }
 
 impl Config {
