@@ -1,6 +1,6 @@
 use std::path::PathBuf;
 
-use {color_eyre::Result, hooked::Config};
+use {color_eyre::Result, hooked_library::Config};
 
 use {insta::assert_debug_snapshot, test_case::test_case};
 

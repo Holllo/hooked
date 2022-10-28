@@ -1,5 +1,5 @@
 use {
-  hooked::{Config, ExitAction, PreCommit, Task},
+  hooked_library::{Config, ExitAction, PreCommit, Task},
   toml::to_string_pretty,
 };
 
