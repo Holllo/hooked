@@ -1,0 +1,24 @@
+[package]
+name = "hooked-cli"
+description = "Git hooks manager."
+repository = "https://git.bauke.xyz/Holllo/hooked"
+license = "AGPL-3.0-or-later"
+version = "0.1.0"
+authors = ["Holllo <helllo@holllo.org>"]
+edition = "2021"
+
+[[bin]]
+name = "hooked"
+path = "source/main.rs"
+
+[dependencies]
+color-eyre = "0.6.2"
+tera = "1.17.1"
+
+[dependencies.clap]
+features = ["derive"]
+version = "4.0.18"
+
+[dependencies.hooked-library]
+path = "../hooked-library"
+version = "0.1.0"

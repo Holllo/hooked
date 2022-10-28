@@ -1,4 +1,5 @@
 [workspace]
 members = [
+  "hooked-cli",
   "hooked-library"
 ]
