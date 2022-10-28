@@ -12,6 +12,7 @@ pub struct PreCommit {
   pub name: Option<String>,
 
   /// What to do when the hook exits with a non-zero status code.
+  #[serde(default)]
   pub on_failure: ExitAction,
 
   /// Task to perform when this hook is called.
