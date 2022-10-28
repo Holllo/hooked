@@ -1,0 +1,9 @@
+---
+source: tests/parsing.rs
+expression: config
+---
+Config {
+    general: General {
+        directory: "hooks",
+    },
+}
