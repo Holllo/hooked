@@ -1,6 +1,6 @@
 [package]
 name = "hooked"
-description = "Small Git hooks manager."
+description = "Git hooks manager."
 repository = "https://git.bauke.xyz/Holllo/hooked"
 license = "AGPL-3.0-or-later"
 version = "0.1.0"
