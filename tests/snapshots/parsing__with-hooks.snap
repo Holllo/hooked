@@ -1,0 +1,35 @@
+---
+source: tests/parsing.rs
+expression: config
+---
+Config {
+    general: General {
+        directory: "hooked",
+    },
+    pre_commit: [
+        PreCommit {
+            name: Some(
+                "Pre Commit 1",
+            ),
+            on_failure: Continue,
+            task: Task {
+                command: Some(
+                    "exit 0",
+                ),
+                script: None,
+            },
+        },
+        PreCommit {
+            name: Some(
+                "Pre Commit 2",
+            ),
+            on_failure: Stop,
+            task: Task {
+                command: None,
+                script: Some(
+                    "test.sh",
+                ),
+            },
+        },
+    ],
+}

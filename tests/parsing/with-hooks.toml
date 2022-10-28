@@ -1,0 +1,12 @@
+[general]
+directory = "hooked"
+
+[[pre_commit]]
+name = "Pre Commit 1"
+command = "exit 0"
+on_failure = "continue"
+
+[[pre_commit]]
+name = "Pre Commit 2"
+script = "test.sh"
+on_failure = "stop"
