@@ -8,8 +8,10 @@ use {
 };
 
 mod general;
+mod task;
 
 pub use general::*;
+pub use task::*;
 
 /// The main Hooked configuration struct.
 #[derive(Debug, Default, Deserialize, Serialize)]
