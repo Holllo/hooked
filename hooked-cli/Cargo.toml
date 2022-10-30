@@ -13,6 +13,8 @@ path = "source/main.rs"
 
 [dependencies]
 color-eyre = "0.6.2"
+owo-colors = "3.5.0"
+subprocess = "0.2.9"
 tera = "1.17.1"
 
 [dependencies.clap]

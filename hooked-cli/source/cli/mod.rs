@@ -4,6 +4,10 @@ use std::path::PathBuf;
 
 use clap::{Parser, Subcommand};
 
+mod run;
+
+pub use run::hooked_run;
+
 /// CLI arguments struct using [`clap::Parser`].
 #[derive(Debug, Parser)]
 #[clap(about, author, version)]
@@ -33,5 +37,12 @@ pub enum MainSubcommands {
     /// Remove hooks not installed by Hooked.
     #[clap(long)]
     all: bool,
+  },
+
+  /// Manually run hooks.
+  Run {
+    /// The hook type to run.
+    #[clap(value_parser = crate::HOOK_TYPES)]
+    hook_type: String,
   },
 }

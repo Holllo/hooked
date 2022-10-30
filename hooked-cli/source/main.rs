@@ -24,7 +24,7 @@ use crate::cli::{Args, MainSubcommands};
 pub const DEFAULT_TEMPLATE: &str = include_str!("templates/default.sh");
 
 /// All supported hook types.
-pub const HOOK_TYPES: &[&str] = &["pre-commit"];
+pub const HOOK_TYPES: [&str; 1] = ["pre-commit"];
 
 mod cli;
 
@@ -79,6 +79,10 @@ fn main() -> Result<()> {
           );
         }
       }
+    }
+
+    MainSubcommands::Run { hook_type } => {
+      cli::hooked_run(config, hook_type)?;
     }
   }
 
