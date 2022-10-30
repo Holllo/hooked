@@ -40,3 +40,22 @@ args = [
   "--skip-clean",
   "--target-dir=target/tarpaulin"
 ]
+
+[tasks.book]
+workspace = false
+install_crate = "mdbook"
+command = "mdbook"
+
+[tasks.clean-book]
+extend = "book"
+args = ["clean", "hooked-book"]
+
+[tasks.build-book]
+extend = "book"
+dependencies = ["clean-book"]
+args = ["build", "hooked-book"]
+
+[tasks.serve-book]
+extend = "book"
+dependencies = ["clean-book"]
+args = ["serve", "hooked-book"]
