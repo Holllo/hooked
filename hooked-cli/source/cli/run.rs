@@ -13,6 +13,11 @@ pub fn hooked_run(config: Config, hook_type: String) -> Result<()> {
   let error_style = Style::new().bold().red();
 
   if hook_type == "pre-commit" {
+    println!(
+      "Hooked: Running {} pre-commit hooks.",
+      config.pre_commit.len()
+    );
+
     for hook in config.pre_commit {
       let hook_name = hook.name.unwrap_or_else(|| "Unnamed Hook".to_string());
 
