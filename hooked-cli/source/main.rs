@@ -35,12 +35,13 @@ fn main() -> Result<()> {
   let config = Config::from_toml_file(args.config)?;
 
   let git_hooks_dir = PathBuf::from(".git/hooks/");
-  if !git_hooks_dir.exists() {
-    return Err(eyre!("The \".git/hooks/\" directory does not exist"));
-  }
 
   match args.command {
     MainSubcommands::Install { overwrite } => {
+      if !git_hooks_dir.exists() {
+        return Err(eyre!("The \".git/hooks/\" directory does not exist"));
+      }
+
       for hook_type in HOOK_TYPES {
         let mut context = Context::new();
         context.insert("hook_type", hook_type);
@@ -63,6 +64,10 @@ fn main() -> Result<()> {
     }
 
     MainSubcommands::Uninstall { all } => {
+      if !git_hooks_dir.exists() {
+        return Err(eyre!("The \".git/hooks/\" directory does not exist"));
+      }
+
       for hook_type in HOOK_TYPES {
         let hook_path = git_hooks_dir.join(hook_type);
         if !hook_path.exists() {
