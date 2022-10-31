@@ -1,3 +1,5 @@
+//! The `run` subcommand.
+
 use std::{io::Read, process::exit};
 
 use {
@@ -5,12 +7,22 @@ use {
   hooked_library::{Config, ExitAction},
   owo_colors::{OwoColorize, Style},
   subprocess::{Exec, Redirection},
+  supports_color::Stream,
 };
 
+/// The `run` subcommand.
 pub fn hooked_run(config: Config, hook_type: String) -> Result<()> {
-  let success_style = Style::new().bold().green();
-  let warn_style = Style::new().bold().yellow();
-  let error_style = Style::new().bold().red();
+  let (success_style, warn_style, error_style) =
+    if let Some(_support) = supports_color::on(Stream::Stdout) {
+      let shared_style = Style::new().bold();
+      (
+        shared_style.green(),
+        shared_style.yellow(),
+        shared_style.red(),
+      )
+    } else {
+      (Style::new(), Style::new(), Style::new())
+    };
 
   if hook_type == "pre-commit" {
     println!(

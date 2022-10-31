@@ -1,0 +1,14 @@
+[general]
+directory = "tests/samples"
+
+[[pre_commit]]
+script = "simple-echo.bash"
+
+[[pre_commit]]
+name = "Exit 1 Continue"
+command = "echo 'on_failure=continue' && exit 1"
+on_failure = "continue"
+
+[[pre_commit]]
+name = "Exit 1 Stop"
+command = "echo 'Hey from stdout!' && echo 'Hey from stderr!' 1>&2 && exit 1"

@@ -1,0 +1,14 @@
+---
+source: hooked-cli/tests/run.rs
+expression: "format!(\"{}{}\", stdout, stderr)"
+---
+Hooked: Running 3 pre-commit hooks.
+	✓ Unnamed Hook
+	⚠ Exit 1 Continue
+on_failure=continue
+
+	✗ Exit 1 Stop
+Hey from stdout!
+Hey from stderr!
+
+
