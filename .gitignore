@@ -4,3 +4,6 @@ target/
 
 # Code coverage results
 coverage/
+
+# mdBook output
+hooked-book/book/
