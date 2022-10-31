@@ -14,7 +14,7 @@ use std::{
 use {
   clap::Parser,
   color_eyre::{eyre::eyre, install, Result},
-  hooked_library::Config,
+  hooked_config::Config,
   tera::{Context, Tera},
 };
 

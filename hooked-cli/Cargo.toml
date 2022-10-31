@@ -22,8 +22,8 @@ tera = "1.17.1"
 features = ["derive"]
 version = "4.0.18"
 
-[dependencies.hooked-library]
-path = "../hooked-library"
+[dependencies.hooked-config]
+path = "../hooked-config"
 version = "0.1.0"
 
 [dev-dependencies]

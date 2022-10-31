@@ -453,7 +453,7 @@ dependencies = [
  "assert_cmd",
  "clap",
  "color-eyre",
- "hooked-library",
+ "hooked-config",
  "insta",
  "owo-colors",
  "subprocess",
@@ -463,7 +463,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "hooked-library"
+name = "hooked-config"
 version = "0.1.0"
 dependencies = [
  "color-eyre",

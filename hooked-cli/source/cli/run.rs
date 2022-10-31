@@ -4,7 +4,7 @@ use std::{io::Read, process::exit};
 
 use {
   color_eyre::{eyre::eyre, Result},
-  hooked_library::{Config, ExitAction},
+  hooked_config::{Config, ExitAction},
   owo_colors::{OwoColorize, Style},
   subprocess::{Exec, Redirection},
   supports_color::Stream,

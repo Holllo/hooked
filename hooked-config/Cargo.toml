@@ -1,6 +1,6 @@
 [package]
-name = "hooked-library"
-description = "Git hooks manager."
+name = "hooked-config"
+description = "Configuration for Hooked."
 repository = "https://git.bauke.xyz/Holllo/hooked"
 license = "AGPL-3.0-or-later"
 version = "0.1.0"
