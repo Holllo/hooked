@@ -38,7 +38,10 @@ pub fn hooked_run(config: Config, hook_type: String) -> Result<()> {
         )),
       }?;
 
-      let mut process = command.stdout(Redirection::Pipe).popen()?;
+      let mut process = command
+        .stderr(Redirection::Merge)
+        .stdout(Redirection::Pipe)
+        .popen()?;
       let exit_status = process.wait()?;
       let output = {
         let mut output = String::new();
@@ -47,15 +50,17 @@ pub fn hooked_run(config: Config, hook_type: String) -> Result<()> {
         output
       };
 
-      let (stop, prefix, style) = match (exit_status.success(), hook.on_failure)
-      {
-        (true, _) => (false, "✓", success_style),
-        (false, ExitAction::Continue) => (false, "⚠", warn_style),
-        (false, ExitAction::Stop) => (true, "✗", error_style),
-      };
+      let (stop, print_output, prefix, style) =
+        match (exit_status.success(), hook.on_failure) {
+          (true, _) => (false, false, "✓", success_style),
+          (false, ExitAction::Continue) => (false, true, "⚠", warn_style),
+          (false, ExitAction::Stop) => (true, true, "✗", error_style),
+        };
 
       println!("\t{} {}", prefix.style(style), hook_name.style(style));
-      println!("{}", output);
+      if !output.is_empty() && print_output {
+        println!("{}", output);
+      }
 
       if stop {
         exit(1);
