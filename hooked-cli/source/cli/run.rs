@@ -10,6 +10,8 @@ use {
   supports_color::Stream,
 };
 
+use crate::utilities::plural;
+
 /// The `run` subcommand.
 pub fn hooked_run(config: Config, hook_type: String) -> Result<()> {
   let (success_style, warn_style, error_style) =
@@ -25,9 +27,11 @@ pub fn hooked_run(config: Config, hook_type: String) -> Result<()> {
     };
 
   if hook_type == "pre-commit" {
+    let hook_count = config.pre_commit.len();
     println!(
-      "Hooked: Running {} pre-commit hooks.",
-      config.pre_commit.len()
+      "Hooked: Running {} pre-commit {}.",
+      hook_count,
+      plural(hook_count, "hook", None)
     );
 
     for hook in config.pre_commit {

@@ -27,6 +27,7 @@ pub const DEFAULT_TEMPLATE: &str = include_str!("templates/default.sh");
 pub const HOOK_TYPES: [&str; 1] = ["pre-commit"];
 
 mod cli;
+mod utilities;
 
 fn main() -> Result<()> {
   install()?;
