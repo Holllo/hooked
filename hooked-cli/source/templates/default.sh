@@ -2,4 +2,4 @@
 
 # Installed by Hooked.
 
-hooked run {{ hook_type }}
+hooked run {{ hook_type }} --config {{ config_path }}

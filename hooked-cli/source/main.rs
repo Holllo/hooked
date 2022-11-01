@@ -45,6 +45,7 @@ fn main() -> Result<()> {
 
       for hook_type in HOOK_TYPES {
         let mut context = Context::new();
+        context.insert("config_path", &config.general.config);
         context.insert("hook_type", hook_type);
 
         let hook_path = git_hooks_dir.join(hook_type);
