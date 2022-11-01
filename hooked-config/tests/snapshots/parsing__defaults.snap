@@ -1,9 +1,10 @@
 ---
-source: tests/parsing.rs
+source: hooked-config/tests/parsing.rs
 expression: config
 ---
 Config {
     general: General {
+        config: "Hooked.toml",
         directory: "hooks",
     },
     pre_commit: [

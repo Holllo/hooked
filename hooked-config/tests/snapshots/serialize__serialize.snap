@@ -1,8 +1,9 @@
 ---
-source: tests/serialize.rs
+source: hooked-config/tests/serialize.rs
 expression: to_string_pretty(&config).unwrap()
 ---
 [general]
+config = 'Hooked.toml'
 directory = 'hooks'
 
 [[pre_commit]]
