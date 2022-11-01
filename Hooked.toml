@@ -1,0 +1,3 @@
+[[pre_commit]]
+name = "Cargo Complete Check"
+command = "cargo make complete-check"
