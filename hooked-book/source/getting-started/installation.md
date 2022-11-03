@@ -15,4 +15,13 @@ cargo install hooked-cli
 
 Precompiled `x86_64-unknown-linux-gnu` binaries are available on the [Releases page][releases].
 
+## Debian & Derivatives
+
+An amd64 `.deb` file is available on the [Releases page][releases].
+
+```sh
+# Don't forget to change <version>.
+dpkg --install hooked-cli_<version>_amd64.deb
+```
+
 [releases]: https://git.bauke.xyz/Holllo/hooked/releases
