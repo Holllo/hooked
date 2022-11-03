@@ -1,0 +1,14 @@
+[book]
+authors = ["Holllo"]
+language = "en"
+multilingual = false
+src = "source"
+title = "Hooked"
+
+[rust]
+edition = "2021"
+
+[output.html]
+git-repository-url = "https://git.bauke.xyz/Holllo/hooked"
+
+[output.linkcheck]

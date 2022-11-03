@@ -59,3 +59,9 @@ args = ["build", "hooked-book"]
 extend = "book"
 dependencies = ["clean-book"]
 args = ["serve", "hooked-book"]
+
+[tasks.deploy-book]
+workspace = false
+dependencies = ["build-book"]
+command = "netlify"
+args = ["deploy", "-d", "hooked-book/book/html", "-p", "-s", "holllo-hooked"]
