@@ -20,3 +20,7 @@ Below is the default script template that Hooked uses, where `hook_type` is the 
 ```sh
 {{#include ../../../hooked-cli/source/templates/default.sh}}
 ```
+
+You can provide your own template by using the `general.template` configuration setting. If you do, make sure you include a line somewhere that says `# Installed by Hooked.` for the [uninstall CLI command][cli-uninstall].
+
+[cli-uninstall]: ./uninstall.md
