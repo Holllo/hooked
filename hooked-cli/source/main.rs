@@ -38,7 +38,8 @@ fn main() -> Result<()> {
   let git_hooks_dir = PathBuf::from(".git/hooks/");
 
   match args.command {
-    MainSubcommands::Install { overwrite } => {
+    MainSubcommands::Install(sub_args) => {
+      let overwrite = sub_args.overwrite;
       if !git_hooks_dir.exists() {
         return Err(eyre!("The \".git/hooks/\" directory does not exist"));
       }
@@ -65,7 +66,7 @@ fn main() -> Result<()> {
       }
     }
 
-    MainSubcommands::Uninstall { all } => {
+    MainSubcommands::Uninstall(sub_args) => {
       if !git_hooks_dir.exists() {
         return Err(eyre!("The \".git/hooks/\" directory does not exist"));
       }
@@ -77,7 +78,7 @@ fn main() -> Result<()> {
         }
 
         let hook_contents = read_to_string(&hook_path)?;
-        if all || hook_contents.contains("# Installed by Hooked.") {
+        if sub_args.all || hook_contents.contains("# Installed by Hooked.") {
           remove_file(hook_path)?;
         } else {
           println!(
@@ -88,8 +89,8 @@ fn main() -> Result<()> {
       }
     }
 
-    MainSubcommands::Run { hook_type } => {
-      cli::hooked_run(config, hook_type)?;
+    MainSubcommands::Run(sub_args) => {
+      cli::hooked_run(config, sub_args.hook_type)?;
     }
   }
 

@@ -2,7 +2,7 @@
 
 use std::path::PathBuf;
 
-use clap::{Parser, Subcommand};
+use clap::{Args as Arguments, Parser, Subcommand};
 
 mod run;
 
@@ -26,23 +26,35 @@ pub struct Args {
 #[derive(Debug, Subcommand)]
 pub enum MainSubcommands {
   /// Install Hooked into ".git/hooks".
-  Install {
-    /// Overwrite existing files.
-    #[clap(long)]
-    overwrite: bool,
-  },
+  Install(InstallArgs),
 
   /// Remove installed hooks.
-  Uninstall {
-    /// Remove hooks not installed by Hooked.
-    #[clap(long)]
-    all: bool,
-  },
+  Uninstall(UninstallArgs),
 
   /// Manually run hooks.
-  Run {
-    /// The hook type to run.
-    #[clap(value_parser = crate::HOOK_TYPES)]
-    hook_type: String,
-  },
+  Run(RunArgs),
+}
+
+/// The `install` subcommand arguments.
+#[derive(Debug, Arguments)]
+pub struct InstallArgs {
+  /// Overwrite existing files.
+  #[clap(long)]
+  pub overwrite: bool,
+}
+
+/// The `uninstall` subcommand arguments.
+#[derive(Debug, Arguments)]
+pub struct UninstallArgs {
+  /// Remove hooks not installed by Hooked.
+  #[clap(long)]
+  pub all: bool,
+}
+
+/// The `run` subcommand arguments.
+#[derive(Debug, Arguments)]
+pub struct RunArgs {
+  /// The hook type to run.
+  #[clap(value_parser = crate::HOOK_TYPES)]
+  pub hook_type: String,
 }
