@@ -6,6 +6,9 @@ Config {
     general: General {
         config: "Hooked.toml",
         directory: "hooked",
+        template: Some(
+            "test.sh",
+        ),
     },
     pre_commit: [
         PreCommit {

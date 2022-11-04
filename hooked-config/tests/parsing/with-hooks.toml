@@ -1,5 +1,6 @@
 [general]
 directory = "hooked"
+template = "test.sh"
 
 [[pre_commit]]
 name = "Pre Commit 1"

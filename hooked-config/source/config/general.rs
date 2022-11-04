@@ -13,6 +13,9 @@ pub struct General {
 
   /// The directory to use for hooks.
   pub directory: PathBuf,
+
+  /// Path to a script template for use with the install subcommand.
+  pub template: Option<PathBuf>,
 }
 
 impl Default for General {
@@ -20,6 +23,7 @@ impl Default for General {
     Self {
       config: PathBuf::from("Hooked.toml"),
       directory: PathBuf::from("hooks"),
+      template: None,
     }
   }
 }

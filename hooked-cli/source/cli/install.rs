@@ -1,6 +1,6 @@
 //! The `install` subcommand.
 use std::{
-  fs::{set_permissions, write, Permissions},
+  fs::{read_to_string, set_permissions, write, Permissions},
   os::unix::fs::PermissionsExt,
   path::PathBuf,
 };
@@ -20,6 +20,7 @@ pub fn hooked_install(config: Config, args: InstallArgs) -> Result<()> {
     return Err(eyre!("The \".git/hooks/\" directory does not exist"));
   }
 
+  let hooked_directory = config.general.directory;
   for hook_type in HOOK_TYPES {
     let mut context = Context::new();
     context.insert("config_path", &config.general.config);
@@ -34,10 +35,14 @@ pub fn hooked_install(config: Config, args: InstallArgs) -> Result<()> {
       continue;
     }
 
-    write(
-      &hook_path,
-      Tera::one_off(DEFAULT_TEMPLATE, &context, false)?,
-    )?;
+    let template = match config.general.template.as_ref() {
+      Some(template_path) => {
+        read_to_string(hooked_directory.join(template_path))?
+      }
+      None => DEFAULT_TEMPLATE.to_string(),
+    };
+
+    write(&hook_path, Tera::one_off(&template, &context, false)?)?;
     set_permissions(hook_path, Permissions::from_mode(0o775))?;
   }
 
