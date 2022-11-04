@@ -4,9 +4,13 @@ use std::path::PathBuf;
 
 use clap::{Args as Arguments, Parser, Subcommand};
 
+mod install;
 mod run;
+mod uninstall;
 
+pub use install::hooked_install;
 pub use run::hooked_run;
+pub use uninstall::hooked_uninstall;
 
 /// CLI arguments struct using [`clap::Parser`].
 #[derive(Debug, Parser)]
