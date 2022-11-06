@@ -4,10 +4,14 @@ use std::path::PathBuf;
 
 use clap::{Args as Arguments, Parser, Subcommand};
 
+#[cfg(debug_assertions)]
+mod cli_reference;
 mod install;
 mod run;
 mod uninstall;
 
+#[cfg(debug_assertions)]
+pub use cli_reference::hooked_cli_reference;
 pub use install::hooked_install;
 pub use run::hooked_run;
 pub use uninstall::hooked_uninstall;
@@ -37,6 +41,10 @@ pub enum MainSubcommands {
 
   /// Manually run hooks.
   Run(RunArgs),
+
+  #[cfg(debug_assertions)]
+  /// Generate the CLI reference file for the mdBook.
+  CliReference(CliReferenceArgs),
 }
 
 /// The `install` subcommand arguments.
@@ -61,4 +69,12 @@ pub struct RunArgs {
   /// The hook type to run.
   #[clap(value_parser = crate::HOOK_TYPES)]
   pub hook_type: String,
+}
+
+/// The `cli-reference` subcommand arguments.
+#[derive(Debug, Arguments)]
+pub struct CliReferenceArgs {
+  /// Path where the CLI reference file should be generated.
+  #[clap(short, long, default_value = "hooked-book/source/")]
+  pub output: PathBuf,
 }

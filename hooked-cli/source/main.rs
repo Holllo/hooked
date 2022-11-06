@@ -40,6 +40,11 @@ fn main() -> Result<()> {
     MainSubcommands::Run(sub_args) => {
       cli::hooked_run(config, sub_args.hook_type)?;
     }
+
+    #[cfg(debug_assertions)]
+    MainSubcommands::CliReference(sub_args) => {
+      cli::hooked_cli_reference(config, sub_args)?;
+    }
   }
 
   Ok(())
