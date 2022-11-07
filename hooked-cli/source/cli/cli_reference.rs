@@ -10,6 +10,7 @@ use {
 
 use crate::cli::CliReferenceArgs;
 
+/// The CLI reference template.
 const REFERENCE_TEMPLATE: &str = include_str!("../templates/cli-reference.txt");
 
 /// The `cli-reference` subcommand.

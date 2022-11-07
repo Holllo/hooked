@@ -6,7 +6,6 @@ homepage = "https://hooked.holllo.org"
 repository = "https://git.bauke.xyz/Holllo/hooked"
 readme = "../README.md"
 license = "AGPL-3.0-or-later"
-license-file = "../LICENSE"
 version = "0.1.0"
 authors = ["Holllo <helllo@holllo.org>"]
 edition = "2021"
