@@ -2,6 +2,10 @@
 
 > **Git hooks manager.**
 
+## Docs
+
+See [hooked.holllo.org](https://hooked.holllo.org) for documentation.
+
 ## Feedback
 
 Found a problem or want to request a new feature? Email [helllo@holllo.org](mailto:helllo@holllo.org) and I'll see what I can do for you.
