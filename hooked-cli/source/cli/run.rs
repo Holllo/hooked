@@ -53,15 +53,13 @@ pub fn hooked_run(config: Config, hook_type: String) -> Result<()> {
           .args(&["diff", "--name-only", "--cached"])
           .capture()?
           .stdout_str();
-        for line in staged_files.lines() {
-          if globs.is_match(line) {
-            println!(
-              "\t{} {}",
-              "≫".style(skipped_style),
-              hook_name.style(skipped_style)
-            );
-            continue 'hook_loop;
-          }
+        if !staged_files.lines().any(|line| globs.is_match(line)) {
+          println!(
+            "\t{} {}",
+            "≫".style(skipped_style),
+            hook_name.style(skipped_style)
+          );
+          continue 'hook_loop;
         }
       }
 
