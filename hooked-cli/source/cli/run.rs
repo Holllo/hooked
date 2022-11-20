@@ -4,6 +4,7 @@ use std::{io::Read, process::exit};
 
 use {
   color_eyre::{eyre::eyre, Result},
+  globset::{Glob, GlobSetBuilder},
   hooked_config::{Config, ExitAction},
   owo_colors::{OwoColorize, Style},
   subprocess::{Exec, Redirection},
@@ -14,16 +15,17 @@ use crate::utilities::plural;
 
 /// The `run` subcommand.
 pub fn hooked_run(config: Config, hook_type: String) -> Result<()> {
-  let (success_style, warn_style, error_style) =
+  let (success_style, warn_style, error_style, skipped_style) =
     if let Some(_support) = supports_color::on(Stream::Stdout) {
       let shared_style = Style::new().bold();
       (
         shared_style.green(),
         shared_style.yellow(),
         shared_style.red(),
+        shared_style.blue(),
       )
     } else {
-      (Style::new(), Style::new(), Style::new())
+      (Style::new(), Style::new(), Style::new(), Style::new())
     };
 
   if hook_type == "pre-commit" {
@@ -34,8 +36,34 @@ pub fn hooked_run(config: Config, hook_type: String) -> Result<()> {
       plural(hook_count, "hook", None)
     );
 
-    for hook in config.pre_commit {
+    'hook_loop: for hook in config.pre_commit {
       let hook_name = hook.name.unwrap_or_else(|| "Unnamed Hook".to_string());
+
+      if !hook.git_staged.is_empty() {
+        let globs = {
+          let mut builder = GlobSetBuilder::new();
+          for glob in hook.git_staged {
+            builder.add(Glob::new(&glob)?);
+          }
+
+          builder.build()?
+        };
+
+        let staged_files = Exec::cmd("git")
+          .args(&["diff", "--name-only", "--cached"])
+          .capture()?
+          .stdout_str();
+        for line in staged_files.lines() {
+          if globs.is_match(line) {
+            println!(
+              "\t{} {}",
+              "≫".style(skipped_style),
+              hook_name.style(skipped_style)
+            );
+            continue 'hook_loop;
+          }
+        }
+      }
 
       let command = match (hook.task.command, hook.task.script) {
         (Some(command), _) => Ok(Exec::shell(command)),

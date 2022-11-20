@@ -453,6 +453,7 @@ dependencies = [
  "assert_cmd",
  "clap",
  "color-eyre",
+ "globset",
  "hooked-config",
  "insta",
  "owo-colors",
