@@ -8,6 +8,10 @@ use crate::{ExitAction, Task};
 #[derive(Debug, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
 pub struct PreCommit {
+  /// List of globs to check against staged files.
+  #[serde(default)]
+  pub git_staged: Vec<String>,
+
   /// Display name for this hook.
   pub name: Option<String>,
 

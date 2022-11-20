@@ -12,6 +12,9 @@ Config {
     },
     pre_commit: [
         PreCommit {
+            git_staged: [
+                "*.txt",
+            ],
             name: Some(
                 "Pre Commit 1",
             ),
@@ -24,6 +27,7 @@ Config {
             },
         },
         PreCommit {
+            git_staged: [],
             name: Some(
                 "Pre Commit 2",
             ),

@@ -10,6 +10,7 @@ Config {
     },
     pre_commit: [
         PreCommit {
+            git_staged: [],
             name: None,
             on_failure: Stop,
             task: Task {

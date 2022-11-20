@@ -7,11 +7,13 @@ config = 'Hooked.toml'
 directory = 'hooks'
 
 [[pre_commit]]
+git_staged = ['*.txt']
 name = 'Command Test'
 on_failure = 'continue'
 command = 'exit 0'
 
 [[pre_commit]]
+git_staged = []
 name = 'Script Test'
 on_failure = 'stop'
 script = 'test.sh'

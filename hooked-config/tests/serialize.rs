@@ -8,6 +8,7 @@ use insta::assert_snapshot;
 #[test]
 fn test_serialize() {
   let pre_commit_command = PreCommit {
+    git_staged: vec!["*.txt".to_string()],
     name: Some("Command Test".to_string()),
     on_failure: ExitAction::Continue,
     task: Task {
@@ -17,6 +18,7 @@ fn test_serialize() {
   };
 
   let pre_commit_script = PreCommit {
+    git_staged: vec![],
     name: Some("Script Test".to_string()),
     on_failure: ExitAction::Stop,
     task: Task {
