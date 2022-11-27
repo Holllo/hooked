@@ -29,7 +29,7 @@ Pre-commit hooks are defined using `pre_commit` [arrays of tables][toml-arrays-o
 | command[^command-and-script] | String | | A command to run when the hook is called. |
 | script[^command-and-script] | String | | A script to run when the hook is called. This script should be executable and be located inside the configured general directory. |
 | on_failure | String | stop | What to do when the hook task returns a non-zero status code. Can be either "continue" or "stop". |
-| git_staged | Optional list of strings | | A list of [globs][globset-docs] that will be checked against staged files. If none of the globs match the hook will be skipped. With no globs defined at all the hook will always run. |
+| staged | Optional list of strings | | A list of [globs][globset-docs] that will be checked against staged files. If none of the globs match the hook will be skipped. With no globs defined at all the hook will always run. |
 
 ```toml
 [[pre_commit]]
@@ -40,7 +40,7 @@ command = "echo \"Hey, $USER!\""
 name = "Script Example"
 script = "example.sh"
 on_failure = "continue"
-git_staged = ["*.txt"]
+staged = ["*.txt"]
 ```
 
 ## Footnotes

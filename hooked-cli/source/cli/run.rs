@@ -39,10 +39,10 @@ pub fn hooked_run(config: Config, hook_type: String) -> Result<()> {
     'hook_loop: for hook in config.pre_commit {
       let hook_name = hook.name.unwrap_or_else(|| "Unnamed Hook".to_string());
 
-      if !hook.git_staged.is_empty() {
+      if !hook.staged.is_empty() {
         let globs = {
           let mut builder = GlobSetBuilder::new();
-          for glob in hook.git_staged {
+          for glob in hook.staged {
             builder.add(Glob::new(&glob)?);
           }
 

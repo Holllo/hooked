@@ -5,7 +5,7 @@ template = "test.sh"
 [[pre_commit]]
 name = "Pre Commit 1"
 command = "exit 0"
-git_staged = ["*.txt"]
+staged = ["*.txt"]
 on_failure = "continue"
 
 [[pre_commit]]
