@@ -4,14 +4,13 @@ use std::{io::Read, process::exit};
 
 use {
   color_eyre::{eyre::eyre, Result},
-  globset::{Glob, GlobSetBuilder},
   hooked_config::{Config, ExitAction},
   owo_colors::{OwoColorize, Style},
   subprocess::{Exec, Redirection},
   supports_color::Stream,
 };
 
-use crate::utilities::plural;
+use crate::utilities::{globset_from_strings, plural};
 
 /// The `run` subcommand.
 pub fn hooked_run(config: Config, hook_type: String) -> Result<()> {
@@ -40,14 +39,7 @@ pub fn hooked_run(config: Config, hook_type: String) -> Result<()> {
       let hook_name = hook.name.unwrap_or_else(|| "Unnamed Hook".to_string());
 
       if !hook.staged.is_empty() {
-        let globs = {
-          let mut builder = GlobSetBuilder::new();
-          for glob in hook.staged {
-            builder.add(Glob::new(&glob)?);
-          }
-
-          builder.build()?
-        };
+        let globs = globset_from_strings(&hook.staged)?;
 
         let staged_files = Exec::cmd("git")
           .args(&["diff", "--name-only", "--cached"])
