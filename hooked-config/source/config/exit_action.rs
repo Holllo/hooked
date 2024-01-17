@@ -6,7 +6,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Deserialize, Eq, PartialEq, Serialize)]
 #[serde(rename_all = "snake_case")]
 pub enum ExitAction {
+  /// Regardless of the hook's exit code, allow Hooked to continue.
   Continue,
+  /// Stop on a non-zero hook exit code.
   Stop,
 }
 
