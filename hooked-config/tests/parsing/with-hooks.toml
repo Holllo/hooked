@@ -1,14 +1,17 @@
 [general]
 directory = "hooked"
+noise_level = "minimal"
 template = "test.sh"
 
 [[pre_commit]]
 name = "Pre Commit 1"
+noise_level = "quiet"
 command = "exit 0"
 staged = ["*.txt"]
 on_failure = "continue"
 
 [[pre_commit]]
 name = "Pre Commit 2"
+noise_level = "loud"
 script = "test.sh"
 on_failure = "stop"

@@ -2,7 +2,7 @@
 
 use serde::{Deserialize, Serialize};
 
-use crate::{ExitAction, Task};
+use crate::{ExitAction, NoiseLevel, Task};
 
 /// A pre-commit hook.
 #[derive(Debug, Deserialize, Serialize)]
@@ -10,6 +10,10 @@ use crate::{ExitAction, Task};
 pub struct PreCommit {
   /// Display name for this hook.
   pub name: Option<String>,
+
+  /// The noise level this task should output with.
+  #[serde(default)]
+  pub noise_level: NoiseLevel,
 
   /// What to do when the hook exits with a non-zero status code.
   #[serde(default)]

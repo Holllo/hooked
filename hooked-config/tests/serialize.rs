@@ -1,5 +1,5 @@
 use {
-  hooked_config::{Config, ExitAction, PreCommit, Task},
+  hooked_config::{Config, ExitAction, NoiseLevel, PreCommit, Task},
   toml::to_string_pretty,
 };
 
@@ -9,6 +9,7 @@ use insta::assert_snapshot;
 fn test_serialize() {
   let pre_commit_command = PreCommit {
     name: Some("Command Test".to_string()),
+    noise_level: NoiseLevel::Quiet,
     on_failure: ExitAction::Continue,
     staged: vec!["*.txt".to_string()],
     task: Task {
@@ -19,6 +20,7 @@ fn test_serialize() {
 
   let pre_commit_script = PreCommit {
     name: Some("Script Test".to_string()),
+    noise_level: NoiseLevel::Loud,
     on_failure: ExitAction::Stop,
     staged: vec![],
     task: Task {

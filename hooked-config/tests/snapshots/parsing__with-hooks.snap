@@ -6,6 +6,7 @@ Config {
     general: General {
         config: "Hooked.toml",
         directory: "hooked",
+        noise_level: Minimal,
         template: Some(
             "test.sh",
         ),
@@ -15,6 +16,7 @@ Config {
             name: Some(
                 "Pre Commit 1",
             ),
+            noise_level: Quiet,
             on_failure: Continue,
             staged: [
                 "*.txt",
@@ -30,6 +32,7 @@ Config {
             name: Some(
                 "Pre Commit 2",
             ),
+            noise_level: Loud,
             on_failure: Stop,
             staged: [],
             task: Task {

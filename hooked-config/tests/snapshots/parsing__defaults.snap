@@ -6,11 +6,13 @@ Config {
     general: General {
         config: "Hooked.toml",
         directory: "hooks",
+        noise_level: Standard,
         template: None,
     },
     pre_commit: [
         PreCommit {
             name: None,
+            noise_level: Standard,
             on_failure: Stop,
             staged: [],
             task: Task {

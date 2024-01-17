@@ -9,11 +9,13 @@ use {
 
 mod exit_action;
 mod general;
+mod noise_level;
 mod pre_commit;
 mod task;
 
 pub use exit_action::*;
 pub use general::*;
+pub use noise_level::*;
 pub use pre_commit::*;
 pub use task::*;
 
