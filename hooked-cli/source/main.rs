@@ -2,9 +2,6 @@
 //!
 //! > **Git hooks manager.**
 
-#![forbid(unsafe_code)]
-#![warn(missing_docs, clippy::missing_docs_in_private_items)]
-
 use {
   clap::Parser,
   color_eyre::{install, Result},

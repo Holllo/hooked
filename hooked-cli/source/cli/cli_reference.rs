@@ -31,7 +31,7 @@ pub fn hooked_cli_reference(
     for command_name in commands_to_document {
       let output = Command::new("cargo")
         .env("NO_COLOR", "1")
-        .args(&["run", "-q", "--", command_name, "--help"])
+        .args(["run", "-q", "--", command_name, "--help"])
         .output()
         .unwrap();
       let usage = str::from_utf8(&output.stdout).unwrap().trim().to_string();
@@ -44,7 +44,7 @@ pub fn hooked_cli_reference(
   let mut context = Context::new();
   context.insert("commands", &commands);
   write(
-    &out_path,
+    out_path,
     Tera::one_off(REFERENCE_TEMPLATE, &context, false)?,
   )?;
 

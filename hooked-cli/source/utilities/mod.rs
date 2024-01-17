@@ -20,7 +20,7 @@ pub fn plural(count: usize, singular: &str, plural: Option<&str>) -> String {
 pub fn globset_from_strings(input: &[String]) -> Result<GlobSet> {
   let mut builder = GlobSetBuilder::new();
   for glob in input {
-    builder.add(Glob::new(&glob)?);
+    builder.add(Glob::new(glob)?);
   }
 
   builder.build().map_err(Into::into)
