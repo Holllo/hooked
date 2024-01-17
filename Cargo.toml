@@ -3,3 +3,4 @@ members = [
   "hooked-cli",
   "hooked-config"
 ]
+resolver = "2"
