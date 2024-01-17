@@ -13,6 +13,9 @@ edition = "2021"
 [lib]
 path = "source/lib.rs"
 
+[lints]
+workspace = true
+
 [dependencies]
 color-eyre = "0.6.2"
 toml = "0.5.9"
