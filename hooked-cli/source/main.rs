@@ -36,7 +36,7 @@ fn main() -> Result<()> {
     }
 
     MainSubcommands::Run(sub_args) => {
-      cli::hooked_run(config, sub_args.hook_type)?;
+      cli::hooked_run(config, sub_args)?;
     }
 
     #[cfg(debug_assertions)]

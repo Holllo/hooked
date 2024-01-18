@@ -2,7 +2,10 @@
 
 use std::path::PathBuf;
 
-use clap::{Args as Arguments, Parser, Subcommand};
+use {
+  clap::{Args as Arguments, Parser, Subcommand},
+  hooked_config::NoiseLevel,
+};
 
 #[cfg(debug_assertions)]
 mod cli_reference;
@@ -69,6 +72,10 @@ pub struct RunArgs {
   /// The hook type to run.
   #[clap(value_parser = crate::HOOK_TYPES)]
   pub hook_type: String,
+
+  /// The noise level to override for all hooks.
+  #[clap(long)]
+  pub noise_level: Option<NoiseLevel>,
 }
 
 /// The `cli-reference` subcommand arguments.

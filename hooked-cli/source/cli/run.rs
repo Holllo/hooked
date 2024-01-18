@@ -10,15 +10,17 @@ use {
 };
 
 use crate::{
+  cli::RunArgs,
   printer::{print, PrintType, PRINT_STYLE},
   utilities::{globset_from_strings, plural},
 };
 
 /// The `run` subcommand.
-pub fn hooked_run(config: Config, hook_type: String) -> Result<()> {
+pub fn hooked_run(config: Config, args: RunArgs) -> Result<()> {
+  let cli_noise_level = args.noise_level.as_ref();
   let global_noise_level = &config.general.noise_level;
 
-  if hook_type == "pre-commit" {
+  if args.hook_type == "pre-commit" {
     let hook_count = config.pre_commit.len();
     print(
       format!(
@@ -26,7 +28,7 @@ pub fn hooked_run(config: Config, hook_type: String) -> Result<()> {
         hook_count,
         plural(hook_count, "hook", None)
       ),
-      &config.general.noise_level,
+      cli_noise_level.unwrap_or(global_noise_level),
       PrintType::Info,
     );
 
@@ -47,7 +49,7 @@ pub fn hooked_run(config: Config, hook_type: String) -> Result<()> {
               "≫".style(PRINT_STYLE.skipped),
               hook_name.style(PRINT_STYLE.skipped)
             ),
-            global_noise_level,
+            cli_noise_level.unwrap_or(global_noise_level),
             PrintType::Info,
           );
           continue 'hook_loop;
@@ -100,11 +102,15 @@ pub fn hooked_run(config: Config, hook_type: String) -> Result<()> {
         hook.noise_level.as_ref().unwrap_or(global_noise_level);
       print(
         format!("\t{} {}", prefix.style(style), hook_name.style(style)),
-        hook_noise_level,
+        cli_noise_level.unwrap_or(hook_noise_level),
         print_type,
       );
       if !output.is_empty() && print_output {
-        print(output, hook_noise_level, PrintType::Info);
+        print(
+          output,
+          cli_noise_level.unwrap_or(hook_noise_level),
+          PrintType::Info,
+        );
       }
 
       if stop {
