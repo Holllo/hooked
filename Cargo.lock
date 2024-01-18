@@ -456,6 +456,7 @@ dependencies = [
  "globset",
  "hooked-config",
  "insta",
+ "lazy_static",
  "owo-colors",
  "subprocess",
  "supports-color",
