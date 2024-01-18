@@ -12,8 +12,7 @@ pub struct PreCommit {
   pub name: Option<String>,
 
   /// The noise level this task should output with.
-  #[serde(default)]
-  pub noise_level: NoiseLevel,
+  pub noise_level: Option<NoiseLevel>,
 
   /// What to do when the hook exits with a non-zero status code.
   #[serde(default)]

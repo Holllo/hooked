@@ -9,7 +9,7 @@ use insta::assert_snapshot;
 fn test_serialize() {
   let pre_commit_command = PreCommit {
     name: Some("Command Test".to_string()),
-    noise_level: NoiseLevel::Quiet,
+    noise_level: None,
     on_failure: ExitAction::Continue,
     staged: vec!["*.txt".to_string()],
     task: Task {
@@ -20,7 +20,7 @@ fn test_serialize() {
 
   let pre_commit_script = PreCommit {
     name: Some("Script Test".to_string()),
-    noise_level: NoiseLevel::Loud,
+    noise_level: Some(NoiseLevel::Loud),
     on_failure: ExitAction::Stop,
     staged: vec![],
     task: Task {

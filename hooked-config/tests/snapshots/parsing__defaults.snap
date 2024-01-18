@@ -12,7 +12,7 @@ Config {
     pre_commit: [
         PreCommit {
             name: None,
-            noise_level: Standard,
+            noise_level: None,
             on_failure: Stop,
             staged: [],
             task: Task {

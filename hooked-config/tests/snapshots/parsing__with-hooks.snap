@@ -16,7 +16,7 @@ Config {
             name: Some(
                 "Pre Commit 1",
             ),
-            noise_level: Quiet,
+            noise_level: None,
             on_failure: Continue,
             staged: [
                 "*.txt",
@@ -32,7 +32,9 @@ Config {
             name: Some(
                 "Pre Commit 2",
             ),
-            noise_level: Loud,
+            noise_level: Some(
+                Loud,
+            ),
             on_failure: Stop,
             staged: [],
             task: Task {

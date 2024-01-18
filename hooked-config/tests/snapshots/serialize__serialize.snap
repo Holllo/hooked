@@ -9,7 +9,6 @@ noise_level = 'standard'
 
 [[pre_commit]]
 name = 'Command Test'
-noise_level = 'quiet'
 on_failure = 'continue'
 staged = ['*.txt']
 command = 'exit 0'
