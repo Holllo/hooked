@@ -3,20 +3,20 @@ source: hooked-config/tests/serialize.rs
 expression: to_string_pretty(&config).unwrap()
 ---
 [general]
-config = 'Hooked.toml'
-directory = 'hooks'
-noise_level = 'standard'
+config = "Hooked.toml"
+directory = "hooks"
+noise_level = "standard"
 
 [[pre_commit]]
-name = 'Command Test'
-on_failure = 'continue'
-staged = ['*.txt']
-command = 'exit 0'
+name = "Command Test"
+on_failure = "continue"
+staged = ["*.txt"]
+command = "exit 0"
 
 [[pre_commit]]
-name = 'Script Test'
-noise_level = 'loud'
-on_failure = 'stop'
+name = "Script Test"
+noise_level = "loud"
+on_failure = "stop"
 staged = []
-script = 'test.sh'
+script = "test.sh"
 

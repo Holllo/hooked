@@ -18,12 +18,12 @@ workspace = true
 
 [dependencies]
 color-eyre = "0.6.2"
-toml = "0.5.9"
+toml = "0.8.8"
 
 [dependencies.serde]
 features = ["derive"]
-version = "1.0.147"
+version = "1.0.195"
 
 [dev-dependencies]
-insta = "1.21.0"
-test-case = "2.2.2"
+insta = "1.34.0"
+test-case = "3.3.1"
