@@ -5,34 +5,29 @@ use std::{io::Read, process::exit};
 use {
   color_eyre::{eyre::eyre, Result},
   hooked_config::{Config, ExitAction},
-  owo_colors::{OwoColorize, Style},
+  owo_colors::OwoColorize,
   subprocess::{Exec, Redirection},
-  supports_color::Stream,
 };
 
-use crate::utilities::{globset_from_strings, plural};
+use crate::{
+  printer::{print, PrintType, PRINT_STYLE},
+  utilities::{globset_from_strings, plural},
+};
 
 /// The `run` subcommand.
 pub fn hooked_run(config: Config, hook_type: String) -> Result<()> {
-  let (success_style, warn_style, error_style, skipped_style) =
-    if let Some(_support) = supports_color::on(Stream::Stdout) {
-      let shared_style = Style::new().bold();
-      (
-        shared_style.green(),
-        shared_style.yellow(),
-        shared_style.red(),
-        shared_style.blue(),
-      )
-    } else {
-      (Style::new(), Style::new(), Style::new(), Style::new())
-    };
+  let global_noise_level = &config.general.noise_level;
 
   if hook_type == "pre-commit" {
     let hook_count = config.pre_commit.len();
-    println!(
-      "Hooked: Running {} pre-commit {}.",
-      hook_count,
-      plural(hook_count, "hook", None)
+    print(
+      format!(
+        "Hooked: Running {} pre-commit {}.",
+        hook_count,
+        plural(hook_count, "hook", None)
+      ),
+      &config.general.noise_level,
+      PrintType::Info,
     );
 
     'hook_loop: for hook in config.pre_commit {
@@ -46,10 +41,14 @@ pub fn hooked_run(config: Config, hook_type: String) -> Result<()> {
           .capture()?
           .stdout_str();
         if !staged_files.lines().any(|line| globs.is_match(line)) {
-          println!(
-            "\t{} {}",
-            "≫".style(skipped_style),
-            hook_name.style(skipped_style)
+          print(
+            format!(
+              "\t{} {}",
+              "≫".style(PRINT_STYLE.skipped),
+              hook_name.style(PRINT_STYLE.skipped)
+            ),
+            global_noise_level,
+            PrintType::Info,
           );
           continue 'hook_loop;
         }
@@ -84,16 +83,28 @@ pub fn hooked_run(config: Config, hook_type: String) -> Result<()> {
         output
       };
 
-      let (stop, print_output, prefix, style) =
+      let (stop, print_output, prefix, style, print_type) =
         match (exit_status.success(), hook.on_failure) {
-          (true, _) => (false, false, "✓", success_style),
-          (false, ExitAction::Continue) => (false, true, "⚠", warn_style),
-          (false, ExitAction::Stop) => (true, true, "✗", error_style),
+          (true, _) => {
+            (false, false, "✓", PRINT_STYLE.success, PrintType::Info)
+          }
+          (false, ExitAction::Continue) => {
+            (false, true, "⚠", PRINT_STYLE.warn, PrintType::Warn)
+          }
+          (false, ExitAction::Stop) => {
+            (true, true, "✗", PRINT_STYLE.error, PrintType::Error)
+          }
         };
 
-      println!("\t{} {}", prefix.style(style), hook_name.style(style));
+      let hook_noise_level =
+        hook.noise_level.as_ref().unwrap_or(global_noise_level);
+      print(
+        format!("\t{} {}", prefix.style(style), hook_name.style(style)),
+        hook_noise_level,
+        print_type,
+      );
       if !output.is_empty() && print_output {
-        println!("{}", output);
+        print(output, hook_noise_level, PrintType::Info);
       }
 
       if stop {
