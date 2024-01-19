@@ -3,4 +3,5 @@
 coverage/
 debug/
 hooked-book/book/
+outputs/
 target/
