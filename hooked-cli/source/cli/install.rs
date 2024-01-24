@@ -15,6 +15,7 @@ use crate::{cli::InstallArgs, DEFAULT_TEMPLATE, HOOK_TYPES};
 
 /// The `install` subcommand.
 pub fn hooked_install(config: Config, args: InstallArgs) -> Result<()> {
+  let silent = args.silent;
   let git_hooks_dir = PathBuf::from(".git/hooks/");
   if !git_hooks_dir.exists() {
     return Err(eyre!("The \".git/hooks/\" directory does not exist"));
@@ -28,10 +29,12 @@ pub fn hooked_install(config: Config, args: InstallArgs) -> Result<()> {
 
     let hook_path = git_hooks_dir.join(hook_type);
     if hook_path.exists() && !args.overwrite {
-      println!(
-        "{:?} exists, use --overwrite to replace the existing file",
-        hook_path
-      );
+      if !silent {
+        println!(
+          "{:?} exists, use --overwrite to replace the existing file",
+          hook_path
+        );
+      }
       continue;
     }
 

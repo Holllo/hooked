@@ -28,6 +28,6 @@ mkShell rec {
       cargo install --path hooked-cli --root $out
     fi
 
-    hooked install
+    hooked install --silent
   '';
 }

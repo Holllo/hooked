@@ -56,6 +56,10 @@ pub struct InstallArgs {
   /// Overwrite existing files.
   #[clap(long)]
   pub overwrite: bool,
+
+  /// Don't output any information.
+  #[clap(long)]
+  pub silent: bool,
 }
 
 /// The `uninstall` subcommand arguments.
