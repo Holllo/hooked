@@ -7,11 +7,16 @@ let
 in
 mkShell rec {
   packages = [
+    cargo-audit
     cargo-edit
+    cargo-insta
     cargo-make
+    cargo-outdated
+    cargo-tarpaulin
     mdbook
     mdbook-linkcheck
     rustup-toolchain
+    typos
   ];
 
   shellHook = ''
