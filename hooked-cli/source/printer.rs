@@ -23,7 +23,7 @@ pub struct PrintStyles {
   pub error: Style,
   /// The style for skipped hooks output.
   pub skipped: Style,
-  /// The style for succesful hooks output.
+  /// The style for successful hooks output.
   pub success: Style,
   /// The style for hooks with warnings.
   pub warn: Style,
